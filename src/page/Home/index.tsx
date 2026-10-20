@@ -1,21 +1,19 @@
+import "./style.css";
+import Hero from "./component/Hero";
+import Story from "./component/Story";
 import { useMemo, useRef } from "react";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import {
-  ArrowDown,
   ArrowRight,
-  ArrowUpRight,
   BriefcaseBusiness,
   House,
   Leaf,
-  Package,
   Search,
   SlidersHorizontal,
-  Sparkles,
-  Truck,
   X,
 } from "lucide-react";
-import { categories, products } from "./data";
-import { ProductCard } from "./components/Shared";
+import { categories, products } from "../../mock/products";
+import { ProductCard } from "../../component";
 export default function Home() {
   const [params, setParams] = useSearchParams();
   const location = useLocation();
@@ -55,64 +53,7 @@ export default function Home() {
   const returnTo = `${location.pathname}${location.search}#collection`;
   return (
     <>
-      <section className="hero wrap" aria-labelledby="hero-title">
-        <div className="hero-copy">
-          <span className="eyebrow">
-            <span className="little-line" /> LESS, BUT BETTER.
-          </span>
-          <h1 id="hero-title">
-            Good things.
-            <br />
-            For <em>everyday.</em>
-          </h1>
-          <p>
-            Thoughtfully chosen objects for home, work,
-            <br className="desktop-break" /> and wherever life takes you.
-          </p>
-          <a href="#collection" className="button primary">
-            Find your everyday <ArrowUpRight size={19} />
-          </a>
-          <div className="hero-footnote">
-            <span className="mini-star">✳</span>
-            <span>A little more intention. A lot more living.</span>
-          </div>
-        </div>
-        <div className="hero-visual">
-          <img
-            src="/images/hero.jpg"
-            alt="A calm, sunlit living room with natural textures and a comfortable sofa"
-            fetchPriority="high"
-          />
-          <span className="hero-corner">THE EVERYDAY EDIT / VOL. 01</span>
-          <div className="hero-image-note">
-            <span>Make yourself at home.</span>
-            <a
-              href="/?category=Home#collection"
-              aria-label="Explore home goods"
-            >
-              <ArrowUpRight size={25} />
-            </a>
-          </div>
-        </div>
-        <a
-          className="hero-scroll"
-          href="#collection"
-          aria-label="Scroll to collection"
-        >
-          <ArrowDown size={16} />
-        </a>
-      </section>
-      <div className="benefits wrap">
-        <span>
-          <Truck /> Free demo shipping on $75+
-        </span>
-        <span>
-          <Sparkles /> A thoughtfully curated collection
-        </span>
-        <span>
-          <Package /> Everyday objects. Lasting appeal.
-        </span>
-      </div>
+      <Hero />
       <section
         id="collection"
         className="collection wrap"
@@ -221,30 +162,7 @@ export default function Home() {
           </div>
         )}
       </section>
-      <section className="story wrap" id="our-story">
-        <div className="story-graphic" aria-hidden="true">
-          ✳
-        </div>
-        <div>
-          <span className="eyebrow">FEWER THINGS. MORE MEANING.</span>
-          <h2>
-            Made for the way
-            <br />
-            you <em>actually live.</em>
-          </h2>
-        </div>
-        <div className="story-text">
-          <p>
-            We believe the things you surround yourself with should earn their
-            place. Beautiful to look at. A pleasure to use. Ready for the
-            everyday.
-          </p>
-          <p>Welcome to a more considered kind of collection.</p>
-          <Link to="/?category=Home#collection" className="text-link">
-            Find your next favorite <ArrowUpRight size={18} />
-          </Link>
-        </div>
-      </section>
+      <Story />
     </>
   );
 }

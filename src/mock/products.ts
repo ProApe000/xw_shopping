@@ -1,18 +1,4 @@
-export type Category = "Home" | "On the Go" | "Workspace";
-export type Product = {
-  id: string;
-  slug: string;
-  name: string;
-  subtitle: string;
-  category: Category;
-  price: number;
-  image: string;
-  stock: number;
-  badge?: string;
-  options?: { name: string; values: string[] };
-  description: string;
-  details: string[];
-};
+import type { Category, Product } from "../types/product";
 export const products: Product[] = [
   {
     id: "p1",
@@ -229,8 +215,4 @@ export const products: Product[] = [
   },
 ];
 export const categories: Category[] = ["Home", "On the Go", "Workspace"];
-export const money = (cents: number) =>
-  new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(
-    cents / 100,
-  );
 export const getProduct = (id: string) => products.find((p) => p.id === id);

@@ -1,10 +1,11 @@
 import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, Check, ShoppingBag, Truck, X } from "lucide-react";
-import { useCart } from "../CartContext";
-import { cartTotals, itemKey } from "../cart";
-import { getProduct, money } from "../data";
-import { ProductImage, Quantity } from "./Shared";
+import { useCart } from "../store/cart/CartContext";
+import { cartTotals, itemKey } from "../store/cart/cart";
+import { getProduct } from "../mock/products";
+import { money } from "../utils/money";
+import { ProductImage, Quantity } from "./index";
 export default function CartDrawer() {
   const { open, setOpen, items, dispatch, storageWarning } = useCart();
   const dialog = useRef<HTMLDivElement>(null);

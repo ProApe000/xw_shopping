@@ -5,8 +5,8 @@ import {
   restoreCart,
   itemKey,
   shippingFor,
-} from "./cart";
-import type { CartItem } from "./cart";
+} from "../store/cart/cart";
+import type { CartItem } from "../store/cart/cart";
 const mug: CartItem = { productId: "p1", option: "300 ml", quantity: 1 };
 describe("cart and inventory", () => {
   it("merges matching variants and separates different variants", () => {

@@ -10,11 +10,12 @@ import {
   LockKeyhole,
   ShoppingBag,
 } from "lucide-react";
-import { useCart } from "./CartContext";
-import { cartTotals, itemKey } from "./cart";
-import type { CartItem } from "./cart";
-import { getProduct, money } from "./data";
-import { ProductImage } from "./components/Shared";
+import { useCart } from "../../store/cart/CartContext";
+import { cartTotals } from "../../store/cart/cart";
+import type { CartItem } from "../../store/cart/cart";
+import OrderSummary from "./component/OrderSummary";
+import TruckIcon from "./component/TruckIcon";
+import "./style.css";
 type Field =
   | "firstName"
   | "lastName"
@@ -299,54 +300,5 @@ export default function Checkout() {
         </aside>
       </div>
     </div>
-  );
-}
-function TruckIcon() {
-  return <ShoppingBag size={24} strokeWidth={1.5} />;
-}
-function OrderSummary({ items }: { items: CartItem[] }) {
-  const { subtotal, shipping, total } = cartTotals(items);
-  return (
-    <>
-      <div className="order-items">
-        {items.map((item) => {
-          const p = getProduct(item.productId)!;
-          return (
-            <div className="order-item" key={itemKey(item)}>
-              <div className="order-image">
-                <ProductImage image={p.image} alt={p.name} />
-                <span>{item.quantity}</span>
-              </div>
-              <div>
-                <strong>{p.name}</strong>
-                <p>{item.option || p.category}</p>
-              </div>
-              <span>{money(p.price * item.quantity)}</span>
-            </div>
-          );
-        })}
-      </div>
-      <div className="order-totals">
-        <div className="total-line">
-          <span>Subtotal</span>
-          <span>{money(subtotal)}</span>
-        </div>
-        <div className="total-line">
-          <span>Demo shipping</span>
-          <span>{shipping ? money(shipping) : "Free"}</span>
-        </div>
-        <div className="total-line grand-total">
-          <span>
-            Total <small>USD</small>
-          </span>
-          <span>{money(total)}</span>
-        </div>
-        <p className="fine-print">
-          $5.99 shipping · free on $75+
-          <br />
-          Taxes are not calculated in this demo.
-        </p>
-      </div>
-    </>
   );
 }

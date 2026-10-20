@@ -1,4 +1,4 @@
-import { getProduct } from "./data";
+import { getProduct } from "../../mock/products";
 export type CartItem = { productId: string; option: string; quantity: number };
 export type CartAction =
   | { type: "add"; item: CartItem }

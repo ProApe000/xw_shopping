@@ -56,10 +56,45 @@ CHROME_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" npm r
 
 To verify the production preview instead, set `BASE_URL=http://localhost:4173`. Optional `SCREENSHOT_DIR` overrides the output folder.
 
+## Code structure
+
+```text
+src/
+  page/
+    Home/
+      index.tsx
+      style.css
+      component/       # Home-only Hero and Story
+    Product/
+      index.tsx
+      style.css
+      component/       # ProductDetail
+    Checkout/
+      index.tsx
+      style.css
+      component/       # OrderSummary and TruckIcon
+    NotFound/
+      index.tsx
+  component/           # Shared layout, navigation, bag and product UI
+    style.css          # Shared component and layout styles
+  test/                # Cart unit tests and browser regression script
+  mock/products.ts     # Demo catalog and categories
+  types/product.ts     # Catalog types
+  utils/money.ts       # USD formatting
+  store/cart/          # Shared cart state and business rules
+    CartContext.tsx    # Provider, useCart and localStorage persistence
+    cart.ts            # Reducer, inventory validation and pricing rules
+  styles.css           # Fonts, reset and global foundation
+  App.tsx              # Route composition
+  main.tsx             # Entry point and providers
+```
+
+Page-specific styles, including responsive rules, live alongside each page. Reusable styles stay in `component/style.css`; the shared empty-state presentation is reused by checkout, product fallback, and NotFound. Existing routes and storage keys are unchanged. `npm run test:e2e` runs `src/test/browser-check.mjs`.
+
 ## Implementation notes
 
 - React 19, TypeScript, Vite, React Router; ordinary responsive CSS and Lucide icons.
-- `src/data.ts` is the local catalog; `src/cart.ts` contains independently tested inventory and pricing rules.
+- `src/mock/products.ts` is the local catalog; `src/store/cart/cart.ts` contains independently tested inventory and pricing rules.
 - Context + reducer keeps cart state small and predictable. Corrupt or stale localStorage is sanitized; unavailable storage falls back to an in-memory bag with an explanation.
 - Search (`q`), category (`category`), and sort (`sort`) are URL parameters. Sort values are `featured`, `price-asc`, and `price-desc`.
 - Product and checkout routes work without a backend. Product pictures and fonts are hosted locally; no runtime third-party asset requests are needed.

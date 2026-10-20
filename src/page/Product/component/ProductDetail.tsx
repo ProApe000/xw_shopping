@@ -1,35 +1,18 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
-  ArrowRight,
   Check,
   ChevronRight,
   Package,
   ShoppingBag,
   Truck,
 } from "lucide-react";
-import { getProduct, money, products } from "./data";
-import { useCart } from "./CartContext";
-import { ProductCard, ProductImage, Quantity } from "./components/Shared";
-export default function ProductPage() {
-  const { slug } = useParams();
-  const product = products.find((p) => p.slug === slug);
-  return product ? (
-    <ProductDetail key={product.id} id={product.id} />
-  ) : (
-    <div className="page-empty wrap">
-      <h1>This little find is missing.</h1>
-      <p>
-        That product may have moved. There are more good things to discover.
-      </p>
-      <Link className="button primary" to="/">
-        Explore the collection <ArrowRight size={18} />
-      </Link>
-    </div>
-  );
-}
-function ProductDetail({ id }: { id: string }) {
+import { getProduct, products } from "../../../mock/products";
+import { money } from "../../../utils/money";
+import { useCart } from "../../../store/cart/CartContext";
+import { ProductCard, ProductImage, Quantity } from "../../../component";
+export default function ProductDetail({ id }: { id: string }) {
   const p = getProduct(id)!;
   const { items, dispatch, setOpen } = useCart();
   const [option, setOption] = useState("");
